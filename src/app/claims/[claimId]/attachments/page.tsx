@@ -1,47 +1,47 @@
 // Attachments List Page for a Claim
 "use client";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from 'next/navigation';
+import { Card, Table } from 'antd';
+import "antd/dist/reset.css";
 
 // Mock attachments for demonstration
 const attachments = [
-  { id: "a1", name: "EOB.pdf", type: "PDF", uploaded: "2024-06-01" },
-  { id: "a2", name: "ClaimForm.jpg", type: "Image", uploaded: "2024-06-02" },
-  { id: "a3", name: "Prescription.pdf", type: "PDF", uploaded: "2024-06-03" },
+  { id: 'ATT-001', name: 'Lab Report.pdf', type: 'PDF', uploaded: '2024-01-15' },
+  { id: 'ATT-002', name: 'X-Ray.jpg', type: 'Image', uploaded: '2024-01-16' },
+];
+const columns = [
+  { title: 'ID', dataIndex: 'id', key: 'id' },
+  { title: 'Name', dataIndex: 'name', key: 'name' },
+  { title: 'Type', dataIndex: 'type', key: 'type' },
+  { title: 'Uploaded', dataIndex: 'uploaded', key: 'uploaded' },
 ];
 
 export default function AttachmentsListPage() {
   const { claimId } = useParams();
   const router = useRouter();
+  
+  
   return (
-    <div className="max-w-2xl mx-auto bg-white rounded shadow p-8 mt-8">
-      <h2 className="text-lg font-bold mb-4">Attachments for Claim #{claimId}</h2>
-      <table className="min-w-full text-sm mb-4">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="px-3 py-2 text-left">ID</th>
-            <th className="px-3 py-2 text-left">Name</th>
-            <th className="px-3 py-2 text-left">Type</th>
-            <th className="px-3 py-2 text-left">Uploaded</th>
-          </tr>
-        </thead>
-        <tbody>
-          {attachments.map(att => (
-            <tr
-              key={att.id}
-              className="border-b hover:bg-blue-50 cursor-pointer"
-              onClick={() => router.push(`/claims/${claimId}/attachments/${att.id}`)}
-              tabIndex={0}
-              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') router.push(`/claims/${claimId}/attachments/${att.id}`); }}
-              aria-label={`View details for attachment ${att.id}`}
-            >
-              <td className="px-3 py-2">{att.id}</td>
-              <td className="px-3 py-2">{att.name}</td>
-              <td className="px-3 py-2">{att.type}</td>
-              <td className="px-3 py-2">{att.uploaded}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="max-w-3xl mx-auto mt-8">
+      <Card
+        title={<span className="text-lg font-bold">Attachments for Claim #{claimId}</span>}
+        className="shadow-lg rounded-lg"
+        styles={{ body: { padding: 0 } }}
+      >
+        <Table
+          columns={columns}
+          dataSource={attachments}
+          rowKey="id"
+          pagination={false}
+          className="rounded-b-lg"
+          onRow={record => ({
+            onClick: () => router.push(`/claims/${claimId}/attachments/${record.id}`),
+            style: { cursor: "pointer" },
+          })}
+          rowClassName={(_, idx) => idx % 2 === 0 ? "bg-white" : "bg-gray-50"}
+          bordered
+        />
+      </Card>
     </div>
   );
 } 

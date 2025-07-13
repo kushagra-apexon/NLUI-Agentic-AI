@@ -1,35 +1,52 @@
 "use client";
-import { useParams, useRouter } from "next/navigation";
+import { Card, Descriptions, Tag, Button } from 'antd';
+import { FileTextOutlined, SafetyCertificateOutlined, CalendarOutlined } from '@ant-design/icons';
+import "antd/dist/reset.css";
 
-// Mock policies for demonstration
-const policies = [
-  { id: "p1", name: "Gold Plan", type: "Medical", effective: "2024-01-01" },
-  { id: "p2", name: "Silver Plan", type: "Dental", effective: "2024-02-01" },
-  { id: "p3", name: "Bronze Plan", type: "Vision", effective: "2024-03-01" },
-];
+// Mock policy data
+const mockPolicy = {
+  id: "POL001",
+  type: "Health Insurance",
+  status: "Active",
+  startDate: "2024-01-01",
+  endDate: "2024-12-31",
+  premium: "$450/month",
+  deductible: "$1,000",
+  copay: "$25",
+  coverage: "80/20",
+  provider: "Blue Cross Blue Shield"
+};
 
 export default function PolicyDetailPage() {
-  const { memberId, policyId } = useParams();
-  const router = useRouter();
-  const policy = policies.find(p => p.id === policyId);
-  if (!policy) {
-    return <div className="text-red-600 p-8">Policy not found.</div>;
-  }
   return (
-    <div className="max-w-xl mx-auto bg-white rounded shadow p-8 mt-8">
-      <h2 className="text-lg font-bold mb-4">Policy Detail</h2>
-      <div className="space-y-2 mb-4">
-        <div><span className="font-semibold">ID:</span> {policy.id}</div>
-        <div><span className="font-semibold">Name:</span> {policy.name}</div>
-        <div><span className="font-semibold">Type:</span> {policy.type}</div>
-        <div><span className="font-semibold">Effective:</span> {policy.effective}</div>
-      </div>
-      <button
-        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer"
-        onClick={() => router.push(`/members/${memberId}/coverage/policies/${policyId}/endorsements`)}
+    <div className="p-6">
+      <Card
+        title={<span className="text-lg font-bold flex items-center gap-2"><FileTextOutlined /> Policy Details</span>}
+        className="shadow-lg rounded-lg"
       >
-        Go to Endorsements Tab
-      </button>
+        <Descriptions
+          title={<span className="text-lg font-bold flex items-center gap-2"><FileTextOutlined /> Policy Information</span>}
+          bordered
+          column={1}
+        >
+          <Descriptions.Item label={<span className="font-semibold flex items-center gap-2"><FileTextOutlined /> Policy ID</span>}>
+            {mockPolicy.id}
+          </Descriptions.Item>
+          <Descriptions.Item label={<span className="font-semibold flex items-center gap-2"><SafetyCertificateOutlined /> Type</span>}>
+            <Tag color="blue">{mockPolicy.type}</Tag>
+          </Descriptions.Item>
+          <Descriptions.Item label="Status">
+            <Tag color="green">{mockPolicy.status}</Tag>
+          </Descriptions.Item>
+          <Descriptions.Item label={<span className="font-semibold flex items-center gap-2"><CalendarOutlined /> Coverage Period</span>}>
+            {mockPolicy.startDate} - {mockPolicy.endDate}
+          </Descriptions.Item>
+        </Descriptions>
+        
+        <div className="mt-4">
+          <Button type="primary">View Endorsements</Button>
+        </div>
+      </Card>
     </div>
   );
 } 

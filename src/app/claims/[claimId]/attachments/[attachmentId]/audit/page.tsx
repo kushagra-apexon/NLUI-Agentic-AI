@@ -1,46 +1,45 @@
 "use client";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from 'next/navigation';
+import { Card, Table } from 'antd';
+import { AuditOutlined } from '@ant-design/icons';
+import "antd/dist/reset.css";
 
 // Mock audits for demonstration
 const audits = [
-  { id: "au1", action: "Viewed", by: "admin", date: "2024-06-04" },
-  { id: "au2", action: "Downloaded", by: "user1", date: "2024-06-05" },
-  { id: "au3", action: "Deleted", by: "admin", date: "2024-06-06" },
+  { id: 'AUD001', action: 'Viewed', by: 'John Doe', date: '2024-01-15', details: 'Viewed attachment' },
+  { id: 'AUD002', action: 'Downloaded', by: 'Jane Smith', date: '2024-01-16', details: 'Downloaded attachment' },
+];
+const columns = [
+  { title: 'ID', dataIndex: 'id', key: 'id' },
+  { title: 'Action', dataIndex: 'action', key: 'action' },
+  { title: 'By', dataIndex: 'by', key: 'by' },
+  { title: 'Date', dataIndex: 'date', key: 'date' },
 ];
 
 export default function AttachmentAuditTab() {
   const { claimId, attachmentId } = useParams();
   const router = useRouter();
   return (
-    <div className="max-w-xl mx-auto bg-white rounded shadow p-8 mt-8">
-      <h2 className="text-lg font-bold mb-4">Audit for Attachment #{attachmentId}</h2>
-      <table className="min-w-full text-sm mb-4">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="px-3 py-2 text-left">ID</th>
-            <th className="px-3 py-2 text-left">Action</th>
-            <th className="px-3 py-2 text-left">By</th>
-            <th className="px-3 py-2 text-left">Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {audits.map(audit => (
-            <tr
-              key={audit.id}
-              className="border-b hover:bg-blue-50 cursor-pointer"
-              onClick={() => router.push(`/claims/${claimId}/attachments/${attachmentId}/audit/${audit.id}`)}
-              tabIndex={0}
-              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') router.push(`/claims/${claimId}/attachments/${attachmentId}/audit/${audit.id}`); }}
-              aria-label={`View details for audit ${audit.id}`}
-            >
-              <td className="px-3 py-2">{audit.id}</td>
-              <td className="px-3 py-2">{audit.action}</td>
-              <td className="px-3 py-2">{audit.by}</td>
-              <td className="px-3 py-2">{audit.date}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="max-w-xl mx-auto mt-8">
+      <Card
+        title={<span className="text-lg font-bold flex items-center gap-2"><AuditOutlined /> Audit for Attachment #{attachmentId}</span>}
+        className="shadow-lg rounded-lg"
+        styles={{ body: { padding: 0 } }}
+      >
+        <Table
+          columns={columns}
+          dataSource={audits}
+          rowKey="id"
+          pagination={false}
+          className="rounded-b-lg"
+          onRow={record => ({
+            onClick: () => router.push(`/claims/${claimId}/attachments/${attachmentId}/audit/${record.id}`),
+            style: { cursor: "pointer" },
+          })}
+          rowClassName={(_, idx) => idx % 2 === 0 ? "bg-white" : "bg-gray-50"}
+          bordered
+        />
+      </Card>
     </div>
   );
 } 

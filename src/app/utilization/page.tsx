@@ -1,71 +1,38 @@
 "use client";
-import { useState } from "react";
-import { utilizationRequests } from "@/mockData/utilization";
-import { useRouter } from "next/navigation";
+import "antd/dist/reset.css";
+import { Card, Table, Tag, Typography } from 'antd';
 
-const PAGE_SIZE = 10;
+const { Title } = Typography;
 
-export default function UtilizationListPage() {
-  const [page, setPage] = useState(1);
-  const totalPages = Math.ceil(utilizationRequests.length / PAGE_SIZE);
-  const paginatedRequests = utilizationRequests.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
-  const router = useRouter();
+const mockUtilizations = [
+  { id: "UTL001", status: "Pending", type: "Review" },
+  { id: "UTL002", status: "Denied", type: "Approval" },
+  { id: "UTL003", status: "In Review", type: "Audit" },
+];
 
+function getStatusColor(status: string) {
+  switch (status) {
+    case 'Approved': return 'green';
+    case 'Denied': return 'red';
+    case 'Pending': return 'orange';
+    case 'In Review': return 'blue';
+    default: return 'default';
+  }
+}
+
+const columns = [
+  { title: 'ID', dataIndex: 'id', key: 'id' },
+  { title: 'Type', dataIndex: 'type', key: 'type' },
+  { title: 'Status', dataIndex: 'status', key: 'status', render: (status: string) => <Tag color={getStatusColor(status)}>{status}</Tag> },
+];
+
+export default function UtilizationPage() {
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Utilization Management</h1>
-      <div className="bg-white rounded shadow p-4">
-        <table className="min-w-full text-sm">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="px-3 py-2 text-left">ID</th>
-              <th className="px-3 py-2 text-left">Member</th>
-              <th className="px-3 py-2 text-left">Request Type</th>
-              <th className="px-3 py-2 text-left">Status</th>
-              <th className="px-3 py-2 text-left">Submitted</th>
-              <th className="px-3 py-2 text-left">Reviewed</th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedRequests.map((req) => (
-              <tr
-                key={req.id}
-                className="border-b hover:bg-blue-50 cursor-pointer"
-                onClick={() => router.push(`/utilization/${req.id}`)}
-                tabIndex={0}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') router.push(`/utilization/${req.id}`); }}
-                aria-label={`View details for utilization request ${req.id}`}
-              >
-                <td className="px-3 py-2">{req.id}</td>
-                <td className="px-3 py-2">{req.memberName}</td>
-                <td className="px-3 py-2">{req.requestType}</td>
-                <td className="px-3 py-2">{req.status}</td>
-                <td className="px-3 py-2">{req.submittedDate}</td>
-                <td className="px-3 py-2">{req.reviewedDate || '-'}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="flex justify-between items-center mt-4">
-          <button
-            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            disabled={page === 1}
-          >
-            Previous
-          </button>
-          <span>
-            Page {page} of {totalPages}
-          </span>
-          <button
-            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            disabled={page === totalPages}
-          >
-            Next
-          </button>
-        </div>
-      </div>
+    <div className="p-6">
+      <Card>
+        <Title level={2}>Utilization Requests</Title>
+        <Table dataSource={mockUtilizations} columns={columns} rowKey="id" />
+      </Card>
     </div>
   );
 } 

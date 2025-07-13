@@ -1,28 +1,29 @@
 "use client";
-import { useAuth } from "@/context/AuthContext";
-import { usePathname } from "next/navigation";
+import { useAuth } from '@/context/AuthContext';
+import { usePathname } from 'next/navigation';
+import { Layout, Input, Button, Typography, Space } from 'antd';
 
 export default function Header() {
   const { logout } = useAuth();
   const pathname = usePathname();
   if (pathname === "/login") return null;
   return (
-    <header className="w-full flex flex-wrap min-w-0 items-center justify-between px-8 py-4 bg-white shadow-md">
-      <div className="text-xl font-bold truncate">US Healthcare Admin Panel</div>
-      <div className="flex items-center gap-4 min-w-0">
-        <input
-          type="text"
-          placeholder="Smart Search (coming soon)"
-          className="border rounded px-3 py-2 focus:outline-none focus:ring w-64 min-w-0"
-          disabled
-        />
-        <button
-          onClick={logout}
-          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
-        >
-          Logout
-        </button>
+    <Layout.Header className="bg-white shadow-md w-full mb-6 px-8 overflow-x-hidden" style={{ background: '#fff', boxShadow: '0 2px 8px #f0f1f2', marginBottom: 32, paddingTop: 0, paddingBottom: 0 }}>
+      <div className="flex items-center h-20 w-full min-w-0 justify-between">
+        <Typography.Title level={4} className="!mb-0 !text-xl truncate min-w-0 flex-1 flex items-center" style={{ margin: 0 }}>
+          US Healthcare Admin Panel
+        </Typography.Title>
+        <div className="flex items-center gap-4 flex-shrink-0">
+          <Input
+            placeholder="Smart Search (coming soon)"
+            className="w-64 min-w-0 max-w-xs"
+            disabled
+          />
+          <Button type="primary" danger onClick={logout}>
+            Logout
+          </Button>
+        </div>
       </div>
-    </header>
+    </Layout.Header>
   );
 } 

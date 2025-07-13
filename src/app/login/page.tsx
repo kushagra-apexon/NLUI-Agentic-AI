@@ -1,18 +1,20 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
+import "antd/dist/reset.css";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
+import { Form, Input, Button, Alert, Typography, Card } from 'antd';
 
 export default function LoginPage() {
   const { login } = useAuth();
   const router = useRouter();
+  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setLoading(true);
     setError("");
     const success = await login(username, password);
@@ -26,35 +28,38 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded shadow-md w-full max-w-sm flex flex-col gap-4"
-      >
-        <h1 className="text-2xl font-bold mb-4 text-center">Admin Login</h1>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-          className="border rounded px-3 py-2 focus:outline-none focus:ring w-full"
-          autoFocus
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          className="border rounded px-3 py-2 focus:outline-none focus:ring w-full"
-        />
-        {error && <div className="text-red-500 text-sm">{error}</div>}
-        <button
-          type="submit"
-          className="bg-blue-600 text-white rounded px-4 py-2 font-semibold hover:bg-blue-700 transition"
-          disabled={loading}
-        >
-          {loading ? "Logging in..." : "Login"}
-        </button>
-      </form>
+      <Card className="w-full max-w-sm shadow-lg" bordered={false}>
+        <Typography.Title level={2} className="text-center mb-6">Admin Login</Typography.Title>
+        {error && <Alert message={error} type="error" showIcon className="mb-4" />}
+        <Form layout="vertical" onFinish={handleSubmit}>
+          <Form.Item label="Username" name="username" rules={[{ required: true, message: 'Please enter your username' }]}> 
+            <Input 
+              value={username} 
+              onChange={e => setUsername(e.target.value)} 
+              autoFocus 
+              size="large"
+            />
+          </Form.Item>
+          <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Please enter your password' }]}> 
+            <Input.Password 
+              value={password} 
+              onChange={e => setPassword(e.target.value)} 
+              size="large"
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button 
+              type="primary" 
+              htmlType="submit" 
+              block 
+              size="large" 
+              loading={loading}
+            >
+              Login
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
     </div>
   );
 } 

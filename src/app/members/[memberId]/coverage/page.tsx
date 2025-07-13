@@ -1,18 +1,23 @@
 "use client";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from 'next/navigation';
+import { Card, Button } from 'antd';
+import { SafetyCertificateOutlined } from '@ant-design/icons';
+import "antd/dist/reset.css";
 
-export default function CoverageTabPage() {
+export default function MemberCoveragePage() {
   const { memberId } = useParams();
-  const router = useRouter();
+  
   return (
-    <div className="max-w-xl mx-auto bg-white rounded shadow p-8 mt-8">
-      <h2 className="text-lg font-bold mb-4">Coverage for Member #{memberId}</h2>
-      <button
-        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer"
-        onClick={() => router.push(`/members/${memberId}/coverage/policies`)}
+    <div className="p-6">
+      <Card
+        title={<span className="text-lg font-bold flex items-center gap-2"><SafetyCertificateOutlined /> Member Coverage</span>}
+        className="shadow-lg rounded-lg"
       >
-        View Policies
-      </button>
+        <div className="space-y-4">
+          <p>Coverage information for member {memberId}</p>
+          <Button type="primary">View Policies</Button>
+        </div>
+      </Card>
     </div>
   );
 } 

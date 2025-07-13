@@ -1,37 +1,119 @@
 "use client";
-import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
-import Breadcrumb from "@/components/Breadcrumb";
+import { Tabs } from 'antd';
+import { UserOutlined, FileTextOutlined, SafetyCertificateOutlined, HistoryOutlined } from '@ant-design/icons';
+import { useRouter, useParams, usePathname } from 'next/navigation';
+import "antd/dist/reset.css";
 
-const tabs = [
-  { name: "Profile", path: "profile" },
-  { name: "Coverage", path: "coverage" },
-  { name: "Claims", path: "claims" },
-  { name: "Authorizations", path: "authorizations" },
-  { name: "History", path: "history" },
-  { name: "Documents", path: "documents" },
-];
-
-export default function MemberDetailLayout({ children }: { children: React.ReactNode }) {
-  const { memberId } = useParams();
+export default function MemberLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const router = useRouter();
+  const params = useParams();
   const pathname = usePathname();
-  const base = `/members/${memberId}`;
+  const memberId = Array.isArray(params.memberId) ? params.memberId[0] : params.memberId;
+
+  // Determine active tab based on current pathname
+  const getActiveKey = () => {
+    if (pathname.includes('/authorizations')) return 'authorizations';
+    if (pathname.includes('/claims')) return 'claims';
+    if (pathname.includes('/coverage')) return 'coverage';
+    if (pathname.includes('/documents')) return 'documents';
+    if (pathname.includes('/history')) return 'history';
+    if (pathname.includes('/profile')) return 'profile';
+    return 'overview';
+  };
+
+  const handleTabChange = (key: string) => {
+    const basePath = `/members/${memberId}`;
+    if (key === 'overview') {
+      router.push(basePath);
+    } else {
+      router.push(`${basePath}/${key}`);
+    }
+  };
+
+  const items = [
+    {
+      key: 'overview',
+      label: (
+        <span className="flex items-center gap-2">
+          <UserOutlined />
+          Overview
+        </span>
+      ),
+      children: children,
+    },
+    {
+      key: 'authorizations',
+      label: (
+        <span className="flex items-center gap-2">
+          <SafetyCertificateOutlined />
+          Authorizations
+        </span>
+      ),
+      children: children,
+    },
+    {
+      key: 'claims',
+      label: (
+        <span className="flex items-center gap-2">
+          <FileTextOutlined />
+          Claims
+        </span>
+      ),
+      children: children,
+    },
+    {
+      key: 'coverage',
+      label: (
+        <span className="flex items-center gap-2">
+          <SafetyCertificateOutlined />
+          Coverage
+        </span>
+      ),
+      children: children,
+    },
+    {
+      key: 'documents',
+      label: (
+        <span className="flex items-center gap-2">
+          <FileTextOutlined />
+          Documents
+        </span>
+      ),
+      children: children,
+    },
+    {
+      key: 'history',
+      label: (
+        <span className="flex items-center gap-2">
+          <HistoryOutlined />
+          History
+        </span>
+      ),
+      children: children,
+    },
+    {
+      key: 'profile',
+      label: (
+        <span className="flex items-center gap-2">
+          <UserOutlined />
+          Profile
+        </span>
+      ),
+      children: children,
+    },
+  ];
+
   return (
-    <div className="p-8">
-      <Breadcrumb />
-      <h2 className="text-xl font-semibold mb-4">Member #{memberId}</h2>
-      <nav className="mb-6 border-b flex gap-4">
-        {tabs.map(tab => (
-          <Link
-            key={tab.path}
-            href={`${base}/${tab.path}`}
-            className={`pb-2 px-2 border-b-2 transition font-medium ${pathname.includes(tab.path) ? "border-blue-600 text-blue-600" : "border-transparent text-gray-600 hover:text-blue-600"}`}
-          >
-            {tab.name}
-          </Link>
-        ))}
-      </nav>
-      <div>{children}</div>
+    <div className="p-6">
+      <Tabs 
+        activeKey={getActiveKey()} 
+        onChange={handleTabChange}
+        items={items} 
+      />
     </div>
   );
 } 

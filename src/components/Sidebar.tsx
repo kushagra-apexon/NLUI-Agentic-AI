@@ -1,34 +1,115 @@
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+"use client";
+import { Layout, Menu } from 'antd';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import {
+  DashboardOutlined,
+  FileTextOutlined,
+  DollarOutlined,
+  TeamOutlined,
+  UserOutlined,
+  ShopOutlined,
+  SafetyCertificateOutlined,
+  FileProtectOutlined,
+  BarChartOutlined,
+  SettingOutlined,
+  UsergroupAddOutlined,
+} from '@ant-design/icons';
 
-const modules = [
-  { name: "Claims", path: "/claims" },
-  { name: "Members", path: "/members" },
-  { name: "Providers", path: "/providers" },
-  { name: "Authorizations", path: "/authorizations" },
-  { name: "Pharmacies", path: "/pharmacies" },
-  { name: "Billing", path: "/billing" },
-  { name: "Utilization", path: "/utilization" },
-  { name: "Reports", path: "/reports" },
-  { name: "Users", path: "/users" },
-  { name: "Settings", path: "/settings" },
+const { Sider } = Layout;
+
+const menuItems = [
+  {
+    key: '/',
+    label: 'Dashboard',
+    icon: <DashboardOutlined />,
+  },
+  {
+    key: '/claims',
+    label: 'Claims',
+    icon: <FileTextOutlined />,
+  },
+  {
+    key: '/billing',
+    label: 'Billing',
+    icon: <DollarOutlined />,
+  },
+  {
+    key: '/providers',
+    label: 'Providers',
+    icon: <TeamOutlined />,
+  },
+  {
+    key: '/members',
+    label: 'Members',
+    icon: <UserOutlined />,
+  },
+  {
+    key: '/pharmacies',
+    label: 'Pharmacies',
+    icon: <ShopOutlined />,
+  },
+  {
+    key: '/authorizations',
+    label: 'Authorizations',
+    icon: <SafetyCertificateOutlined />,
+  },
+  {
+    key: '/utilization',
+    label: 'Utilization',
+    icon: <FileProtectOutlined />,
+  },
+  {
+    key: '/reports',
+    label: 'Reports',
+    icon: <BarChartOutlined />,
+  },
+  {
+    key: '/settings',
+    label: 'Settings',
+    icon: <SettingOutlined />,
+  },
+  {
+    key: '/users',
+    label: 'Users',
+    icon: <UsergroupAddOutlined />,
+  },
 ];
 
 export default function Sidebar() {
-  const pathname = usePathname();
+  const router = useRouter();
+  const [collapsed, setCollapsed] = useState(false);
+
+  const handleMenuClick = ({ key }: { key: string }) => {
+    router.push(key);
+  };
+
   return (
-    <aside className="h-screen w-56 bg-gray-100 border-r flex flex-col py-8 px-4 fixed top-0 left-0 z-20">
-      <nav className="flex flex-col gap-2">
-        {modules.map((mod) => (
-          <Link
-            key={mod.path}
-            href={mod.path}
-            className={`rounded px-3 py-2 font-medium transition-colors ${pathname.startsWith(mod.path) ? "bg-blue-600 text-white" : "text-gray-700 hover:bg-blue-100"}`}
-          >
-            {mod.name}
-          </Link>
-        ))}
-      </nav>
-    </aside>
+    <Sider
+      width={180}
+      collapsible
+      collapsed={collapsed}
+      trigger={null}
+      style={{ background: '#f5f5f5', minHeight: '100vh' }}
+    >
+      <div className={`p-4 flex items-center ${collapsed ? 'justify-center' : 'justify-between'}`}>
+        {!collapsed && <h1 className="text-xl font-bold">Admin Panel</h1>}
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="ml-2 text-lg focus:outline-none cursor-pointer"
+          style={{ background: 'none', border: 'none' }}
+          aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+        >
+          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        </button>
+      </div>
+      <Menu
+        mode="inline"
+        items={menuItems}
+        onClick={handleMenuClick}
+        style={{ height: '100%', borderRight: 0, background: '#f5f5f5' }}
+      />
+    </Sider>
   );
 } 

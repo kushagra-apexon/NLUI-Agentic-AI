@@ -1,46 +1,84 @@
 "use client";
-import { useParams, useRouter } from "next/navigation";
+import { Card, Table, Tag } from 'antd';
+import { SafetyCertificateOutlined } from '@ant-design/icons';
+import "antd/dist/reset.css";
 
-// Mock endorsements for demonstration
-const endorsements = [
-  { id: "e1", type: "Rider", description: "Vision rider added", date: "2024-04-01" },
-  { id: "e2", type: "Amendment", description: "Coverage increased", date: "2024-04-10" },
-  { id: "e3", type: "Rider", description: "Dental rider added", date: "2024-04-15" },
+// Mock data for endorsements
+const mockEndorsements = [
+  {
+    id: "END001",
+    type: "Benefit Enhancement",
+    status: "Active",
+    effectiveDate: "2024-01-15",
+    description: "Increased coverage for prescription drugs"
+  },
+  {
+    id: "END002",
+    type: "Network Addition",
+    status: "Active",
+    effectiveDate: "2024-02-01",
+    description: "Added new provider network"
+  },
+  {
+    id: "END003",
+    type: "Coverage Reduction",
+    status: "Pending",
+    effectiveDate: "2024-03-01",
+    description: "Reduced coverage for elective procedures"
+  }
 ];
 
-export default function EndorsementsListPage() {
-  const { memberId, policyId } = useParams();
-  const router = useRouter();
+const typeColors: { [key: string]: string } = {
+  "Benefit Enhancement": "green",
+  "Network Addition": "blue",
+  "Coverage Reduction": "orange",
+};
+
+export default function PolicyEndorsementsPage() {
+  const columns = [
+    {
+      title: 'Endorsement ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Type',
+      dataIndex: 'type',
+      key: 'type',
+      render: (type: string) => (
+        <Tag color={typeColors[type] || "default"}>{type}</Tag>
+      ),
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+    },
+    {
+      title: 'Effective Date',
+      dataIndex: 'effectiveDate',
+      key: 'effectiveDate',
+    },
+    {
+      title: 'Description',
+      dataIndex: 'description',
+      key: 'description',
+    },
+  ];
+
   return (
-    <div className="max-w-2xl mx-auto bg-white rounded shadow p-8 mt-8">
-      <h2 className="text-lg font-bold mb-4">Endorsements for Policy #{policyId}</h2>
-      <table className="min-w-full text-sm mb-4">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="px-3 py-2 text-left">ID</th>
-            <th className="px-3 py-2 text-left">Type</th>
-            <th className="px-3 py-2 text-left">Description</th>
-            <th className="px-3 py-2 text-left">Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {endorsements.map(e => (
-            <tr
-              key={e.id}
-              className="border-b hover:bg-blue-50 cursor-pointer"
-              onClick={() => router.push(`/members/${memberId}/coverage/policies/${policyId}/endorsements/${e.id}`)}
-              tabIndex={0}
-              onKeyDown={ev => { if (ev.key === 'Enter' || ev.key === ' ') router.push(`/members/${memberId}/coverage/policies/${policyId}/endorsements/${e.id}`); }}
-              aria-label={`View details for endorsement ${e.id}`}
-            >
-              <td className="px-3 py-2">{e.id}</td>
-              <td className="px-3 py-2">{e.type}</td>
-              <td className="px-3 py-2">{e.description}</td>
-              <td className="px-3 py-2">{e.date}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="p-6">
+      <Card
+        title={<span className="text-lg font-bold flex items-center gap-2"><SafetyCertificateOutlined /> Policy Endorsements</span>}
+        className="shadow-lg rounded-lg"
+      >
+        <Table
+          dataSource={mockEndorsements}
+          columns={columns}
+          rowKey="id"
+          pagination={{ pageSize: 10 }}
+        />
+      </Card>
     </div>
   );
 } 

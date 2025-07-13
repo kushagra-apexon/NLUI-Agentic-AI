@@ -1,29 +1,66 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams } from 'next/navigation';
+import { Card, Tag } from 'antd';
+import { AuditOutlined, FileSearchOutlined, UserOutlined, CalendarOutlined } from '@ant-design/icons';
+import "antd/dist/reset.css";
 
 // Mock audits for demonstration
-const audits = [
-  { id: "au1", action: "Viewed", by: "admin", date: "2024-06-04", details: "Attachment was viewed by admin." },
-  { id: "au2", action: "Downloaded", by: "user1", date: "2024-06-05", details: "Attachment was downloaded by user1." },
-  { id: "au3", action: "Deleted", by: "admin", date: "2024-06-06", details: "Attachment was deleted by admin." },
+const mockAudits = [
+  {
+    id: "AUD001",
+    action: "Viewed",
+    by: "John Doe",
+    date: "2024-01-15 10:30:00",
+    details: "User viewed attachment details"
+  },
+  {
+    id: "AUD002", 
+    action: "Downloaded",
+    by: "Jane Smith",
+    date: "2024-01-15 11:45:00",
+    details: "User downloaded attachment file"
+  },
+  {
+    id: "AUD003",
+    action: "Deleted",
+    by: "Admin User",
+    date: "2024-01-16 09:15:00",
+    details: "Attachment was deleted due to policy violation"
+  }
 ];
 
+const actionColors: { [key: string]: string } = {
+  Viewed: "blue",
+  Downloaded: "green",
+  Deleted: "red",
+};
+
 export default function AuditDetailPage() {
-  const { auditId } = useParams();
-  const audit = audits.find(a => a.id === auditId);
+  const params = useParams();
+  // Next.js 15 returns params as a record of string | string[]
+  const auditId = Array.isArray(params.auditId) ? params.auditId[0] : params.auditId;
+  
+  // Find the audit by ID
+  const audit = mockAudits.find(a => a.id === auditId);
+  
   if (!audit) {
     return <div className="text-red-600 p-8">Audit not found.</div>;
   }
+  
   return (
-    <div className="max-w-xl mx-auto bg-white rounded shadow p-8 mt-8">
-      <h2 className="text-lg font-bold mb-4">Audit Detail</h2>
-      <div className="space-y-2">
-        <div><span className="font-semibold">ID:</span> {audit.id}</div>
-        <div><span className="font-semibold">Action:</span> {audit.action}</div>
-        <div><span className="font-semibold">By:</span> {audit.by}</div>
-        <div><span className="font-semibold">Date:</span> {audit.date}</div>
-        <div><span className="font-semibold">Details:</span> {audit.details}</div>
-      </div>
+    <div className="max-w-xl mx-auto mt-8">
+      <Card
+        title={<span className="text-lg font-bold flex items-center gap-2"><AuditOutlined /> Audit Detail</span>}
+        className="shadow-lg rounded-lg"
+      >
+        <div className="space-y-4">
+          <div><span className="font-semibold">ID:</span> {audit.id}</div>
+          <div><span className="font-semibold">Action:</span> <Tag color={actionColors[audit.action] || "default"} icon={<FileSearchOutlined />}>{audit.action}</Tag></div>
+          <div><span className="font-semibold">By:</span> <UserOutlined /> {audit.by}</div>
+          <div><span className="font-semibold">Date:</span> <CalendarOutlined /> {audit.date}</div>
+          <div><span className="font-semibold">Details:</span> {audit.details}</div>
+        </div>
+      </Card>
     </div>
   );
 } 

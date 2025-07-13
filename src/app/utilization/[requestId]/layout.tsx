@@ -1,34 +1,36 @@
 "use client";
-import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
-import Breadcrumb from "@/components/Breadcrumb";
+import React from 'react';
+import { Card, Tag, Typography } from 'antd';
 
-const tabs = [
-  { name: "Overview", path: "overview" },
-  { name: "Status", path: "status" },
-  { name: "Notes", path: "notes" },
-];
+const { Title, Text } = Typography;
 
-export default function UtilizationDetailLayout({ children }: { children: React.ReactNode }) {
-  const { requestId } = useParams();
-  const pathname = usePathname();
-  const base = `/utilization/${requestId}`;
+const mockUtilization = {
+  id: "UTL001",
+  status: "Pending",
+  type: "Review",
+};
+
+function getStatusColor(status: string) {
+  switch (status) {
+    case 'Approved': return 'green';
+    case 'Denied': return 'red';
+    case 'Pending': return 'orange';
+    case 'In Review': return 'blue';
+    default: return 'default';
+  }
+}
+
+export default function UtilizationLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="p-8">
-      <Breadcrumb />
-      <h2 className="text-xl font-semibold mb-4">Request #{requestId}</h2>
-      <nav className="mb-6 border-b flex gap-4">
-        {tabs.map(tab => (
-          <Link
-            key={tab.path}
-            href={`${base}/${tab.path}`}
-            className={`pb-2 px-2 border-b-2 transition font-medium ${pathname.includes(tab.path) ? "border-blue-600 text-blue-600" : "border-transparent text-gray-600 hover:text-blue-600"}`}
-          >
-            {tab.name}
-          </Link>
-        ))}
-      </nav>
-      <div>{children}</div>
+    <div className="p-6">
+      <Card>
+        <Title level={3}>Utilization Request</Title>
+        <Text type="secondary">Type: {mockUtilization.type}</Text>
+        <div className="mt-4">
+          <Tag color={getStatusColor(mockUtilization.status)}>{mockUtilization.status}</Tag>
+        </div>
+      </Card>
+      <div className="mt-6">{children}</div>
     </div>
   );
 } 

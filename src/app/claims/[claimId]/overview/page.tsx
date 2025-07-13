@@ -1,24 +1,95 @@
 "use client";
-import { useParams } from "next/navigation";
-import { claims } from "@/mockData/claims";
+import { Card, Descriptions, Tag, Button, Progress } from 'antd';
+import { FileTextOutlined, UserOutlined, CalendarOutlined, DollarOutlined } from '@ant-design/icons';
+import "antd/dist/reset.css";
 
-export default function ClaimOverviewTab() {
-  const { claimId } = useParams();
-  const claim = claims.find((c) => c.id === claimId);
-  if (!claim) {
-    return <div className="text-red-600 p-8">Claim not found.</div>;
-  }
+// Mock claim data
+const mockClaim = {
+  id: "CLM001",
+  memberId: "MEM001",
+  memberName: "John Smith",
+  service: "MRI Scan",
+  provider: "City Medical Center",
+  status: "Approved",
+  submittedDate: "2024-01-15",
+  processedDate: "2024-01-18",
+  amount: "$1,500.00",
+  paidAmount: "$1,200.00",
+  memberResponsibility: "$300.00",
+  progress: 100
+};
+
+export default function ClaimOverviewPage() {
   return (
-    <div className="max-w-xl mx-auto bg-white rounded shadow p-8 mt-8">
-      <h2 className="text-xl font-bold mb-4">Claim Overview</h2>
-      <div className="space-y-2">
-        <div><span className="font-semibold">Claim ID:</span> {claim.id}</div>
-        <div><span className="font-semibold">Member Name:</span> {claim.memberName}</div>
-        <div><span className="font-semibold">Provider Name:</span> {claim.providerName}</div>
-        <div><span className="font-semibold">Status:</span> {claim.status}</div>
-        <div><span className="font-semibold">Amount:</span> ${claim.amount.toFixed(2)}</div>
-        <div><span className="font-semibold">Date:</span> {claim.date}</div>
-      </div>
+    <div className="p-6">
+      <Card
+        title={<span className="text-lg font-bold flex items-center gap-2"><FileTextOutlined /> Claim Overview</span>}
+        className="shadow-lg rounded-lg"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <Descriptions
+              title={<span className="text-lg font-bold flex items-center gap-2"><FileTextOutlined /> Claim Information</span>}
+              bordered
+              column={1}
+            >
+              <Descriptions.Item label={<span className="font-semibold flex items-center gap-2"><FileTextOutlined /> Claim ID</span>}>
+                {mockClaim.id}
+              </Descriptions.Item>
+              <Descriptions.Item label={<span className="font-semibold flex items-center gap-2"><UserOutlined /> Member</span>}>
+                {mockClaim.memberName} ({mockClaim.memberId})
+              </Descriptions.Item>
+              <Descriptions.Item label="Service">
+                {mockClaim.service}
+              </Descriptions.Item>
+              <Descriptions.Item label="Provider">
+                {mockClaim.provider}
+              </Descriptions.Item>
+              <Descriptions.Item label="Status">
+                <Tag color="green">{mockClaim.status}</Tag>
+              </Descriptions.Item>
+              <Descriptions.Item label={<span className="font-semibold flex items-center gap-2"><CalendarOutlined /> Submitted Date</span>}>
+                {mockClaim.submittedDate}
+              </Descriptions.Item>
+              <Descriptions.Item label="Processed Date">
+                {mockClaim.processedDate}
+              </Descriptions.Item>
+            </Descriptions>
+          </div>
+          
+          <div>
+            <Card title={<span className="font-semibold flex items-center gap-2"><DollarOutlined /> Financial Summary</span>}>
+              <div className="space-y-4">
+                <div className="flex justify-between">
+                  <span>Total Amount:</span>
+                  <span className="font-semibold">{mockClaim.amount}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Paid Amount:</span>
+                  <span className="font-semibold text-green-600">{mockClaim.paidAmount}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Member Responsibility:</span>
+                  <span className="font-semibold text-red-600">{mockClaim.memberResponsibility}</span>
+                </div>
+                <div className="mt-4">
+                  <div className="flex justify-between mb-2">
+                    <span>Processing Progress:</span>
+                    <span>{mockClaim.progress}%</span>
+                  </div>
+                  <Progress percent={mockClaim.progress} status="success" />
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+        
+        <div className="mt-6 flex gap-4">
+          <Button type="primary">View Details</Button>
+          <Button>Download Report</Button>
+          <Button>Print Summary</Button>
+        </div>
+      </Card>
     </div>
   );
 } 
