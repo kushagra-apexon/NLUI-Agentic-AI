@@ -138,10 +138,10 @@ export default function UtilizationNotesPage() {
                     {item.avatar}
                   </Avatar>
                 }
-                author={
+                title={
                   <Space>
                     <Text strong>{item.author}</Text>
-                    <Tag color={getNoteTypeColor(item.type)} size="small">
+                    <Tag color={getNoteTypeColor(item.type)}>
                       {item.type}
                     </Tag>
                   </Space>

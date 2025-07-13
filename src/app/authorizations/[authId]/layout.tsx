@@ -17,7 +17,7 @@ export default function AuthorizationDetailLayout({ children }: { children: Reac
     { path: `${base}/history`, name: 'History' },
   ];
 
-  const activeKey = tabs.find(tab => pathname.endsWith(tab.path))?.key || tabs[0].key;
+  const activeKey = tabs.find(tab => pathname.endsWith(tab.path))?.path || tabs[0].path;
 
   return (
     <div className="p-8">
