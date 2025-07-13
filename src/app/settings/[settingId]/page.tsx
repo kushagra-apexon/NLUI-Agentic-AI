@@ -1,7 +1,7 @@
 "use client";
 import { useParams } from 'next/navigation';
 import { Card, Tag, Descriptions } from 'antd';
-import { SettingOutlined, KeyOutlined, CalendarOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
+import { SettingOutlined, KeyOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons';
 import "antd/dist/reset.css";
 
 // Mock settings data

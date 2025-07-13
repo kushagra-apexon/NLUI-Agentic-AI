@@ -1,7 +1,7 @@
 "use client";
 import { useAuth } from '@/context/AuthContext';
 import { usePathname } from 'next/navigation';
-import { Layout, Input, Button, Typography, Space } from 'antd';
+import { Layout, Input, Button, Typography } from 'antd';
 
 export default function Header() {
   const { logout } = useAuth();

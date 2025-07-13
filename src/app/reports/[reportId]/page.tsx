@@ -1,7 +1,7 @@
 "use client";
 import { useParams } from 'next/navigation';
 import { Card, Tag, Descriptions, Button } from 'antd';
-import { FileTextOutlined, BarChartOutlined, CalendarOutlined, UserOutlined, DownloadOutlined } from '@ant-design/icons';
+import { FileTextOutlined, BarChartOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
 import "antd/dist/reset.css";
 

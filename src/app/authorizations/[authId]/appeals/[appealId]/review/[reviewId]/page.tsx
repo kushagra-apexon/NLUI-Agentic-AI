@@ -1,7 +1,7 @@
 "use client";
 import { useParams } from 'next/navigation';
 import { Card, Tag, Descriptions } from 'antd';
-import { FileSearchOutlined, UserOutlined, CalendarOutlined, AlertOutlined } from '@ant-design/icons';
+import { FileSearchOutlined, UserOutlined, CalendarOutlined } from '@ant-design/icons';
 import "antd/dist/reset.css";
 
 // Mock review data

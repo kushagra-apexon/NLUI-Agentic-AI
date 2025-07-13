@@ -1,5 +1,5 @@
 "use client";
-import { Card, Table, Tag, Button, Typography } from 'antd';
+import { Card, Table, Tag, Button } from 'antd';
 import { UserOutlined, EnvironmentOutlined, PhoneOutlined, MailOutlined } from '@ant-design/icons';
 
 import { useRouter } from 'next/navigation';
@@ -43,7 +43,6 @@ const statusColors: { [key: string]: string } = {
 
 export default function ProvidersPage() {
   const router = useRouter();
-  const { Title } = Typography;
   const columns = [
     {
       title: 'Provider ID',

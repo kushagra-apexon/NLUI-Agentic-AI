@@ -30,7 +30,7 @@ export default function Breadcrumb() {
       className="mb-8 text-sm"
       items={items}
       separator="/"
-      itemRender={(route, params, routes, paths) => {
+      itemRender={(route, params, routes) => {
         const isLast = routes.indexOf(route) === routes.length - 1;
         if (route.onClick && !isLast) {
           return (
