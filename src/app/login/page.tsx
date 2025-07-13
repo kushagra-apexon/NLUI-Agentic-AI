@@ -28,7 +28,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-sm shadow-lg" bordered={false}>
+      <Card className="w-full max-w-sm shadow-lg" variant="borderless">
         <Typography.Title level={2} className="text-center mb-6">Admin Login</Typography.Title>
         {error && <Alert message={error} type="error" showIcon className="mb-4" />}
         <Form layout="vertical" onFinish={handleSubmit}>

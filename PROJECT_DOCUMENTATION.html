@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NLUI-Agentic-AI Project Documentation</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 2rem; background: #f8fafc; color: #222; }
+    h1, h2, h3 { color: #4f46e5; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-size: 1em; }
+    pre { background: #f3f4f6; padding: 1em; border-radius: 6px; overflow-x: auto; }
+    ul { margin-bottom: 1.5em; }
+    .route-list { margin-bottom: 2em; }
+    .route-list li { margin-bottom: 0.5em; }
+    .section { margin-bottom: 2.5em; }
+  </style>
+</head>
+<body>
+  <h1>NLUI-Agentic-AI Project Documentation</h1>
+  <p>
+    <strong>NLUI-Agentic-AI</strong> is a modern, modular healthcare administration panel built with Next.js, Ant Design, and Tailwind CSS. It supports complex workflows for managing members, claims, providers, pharmacies, authorizations, billing, and more.
+  </p>
+
+  <div class="section">
+    <h2>Project Setup</h2>
+    <ol>
+      <li>Clone the repository and install dependencies:<br>
+        <code>npm install</code>
+      </li>
+      <li>Start the development server:<br>
+        <code>npm run dev</code>
+      </li>
+      <li>Build for production:<br>
+        <code>npm run build</code>
+      </li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2>Key Features</h2>
+    <ul>
+      <li>Role-based access and authentication</li>
+      <li>Modular, deeply nested routing for complex healthcare workflows</li>
+      <li>Reusable Ant Design UI components</li>
+      <li>Consistent navigation with Breadcrumbs</li>
+      <li>Responsive, modern design with Tailwind CSS</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Complex Pages & Routes</h2>
+    <p>This app supports a wide range of complex, nested, and parameterized routes. Below is a summary of the main modules and their key subroutes:</p>
+    <ul class="route-list">
+      <li>
+        <strong>Members</strong> <code>/members</code>
+        <ul>
+          <li>Member Details: <code>/members/[memberId]</code></li>
+          <li>Authorizations: <code>/members/[memberId]/authorizations</code></li>
+          <li>Claims: <code>/members/[memberId]/claims</code></li>
+          <li>Coverage: <code>/members/[memberId]/coverage</code></li>
+          <li>Coverage Policies: <code>/members/[memberId]/coverage/policies/[policyId]</code></li>
+          <li>Endorsements: <code>/members/[memberId]/coverage/policies/[policyId]/endorsements/[endorsementId]</code></li>
+          <li>Documents: <code>/members/[memberId]/documents</code></li>
+          <li>History: <code>/members/[memberId]/history</code></li>
+          <li>Profile: <code>/members/[memberId]/profile</code></li>
+          <li>Notes: <code>/members/[memberId]/notes</code></li>
+        </ul>
+      </li>
+      <li>
+        <strong>Claims</strong> <code>/claims</code>
+        <ul>
+          <li>Claim Details: <code>/claims/[claimId]</code></li>
+          <li>Adjudication: <code>/claims/[claimId]/adjudication</code></li>
+          <li>Attachments: <code>/claims/[claimId]/attachments/[attachmentId]</code></li>
+          <li>Attachment Audit: <code>/claims/[claimId]/attachments/[attachmentId]/audit/[auditId]</code></li>
+          <li>History: <code>/claims/[claimId]/history</code></li>
+          <li>Notes: <code>/claims/[claimId]/notes</code></li>
+          <li>Overview: <code>/claims/[claimId]/overview</code></li>
+        </ul>
+      </li>
+      <li>
+        <strong>Providers</strong> <code>/providers</code>
+        <ul>
+          <li>Provider Details: <code>/providers/[providerId]</code></li>
+          <li>Claims: <code>/providers/[providerId]/claims</code></li>
+          <li>Contracts: <code>/providers/[providerId]/contracts</code></li>
+          <li>Locations: <code>/providers/[providerId]/locations</code></li>
+          <li>Notes: <code>/providers/[providerId]/notes</code></li>
+          <li>Profile: <code>/providers/[providerId]/profile</code></li>
+          <li>Reviews: <code>/providers/[providerId]/reviews</code></li>
+        </ul>
+      </li>
+      <li>
+        <strong>Pharmacies</strong> <code>/pharmacies</code>
+        <ul>
+          <li>Pharmacy Details: <code>/pharmacies/[pharmacyId]</code></li>
+          <li>Claims: <code>/pharmacies/[pharmacyId]/claims</code></li>
+          <li>Inventory: <code>/pharmacies/[pharmacyId]/inventory</code></li>
+          <li>Orders: <code>/pharmacies/[pharmacyId]/orders/[orderId]</code></li>
+          <li>Order Items: <code>/pharmacies/[pharmacyId]/orders/[orderId]/items/[itemId]</code></li>
+          <li>Order Item Audit: <code>/pharmacies/[pharmacyId]/orders/[orderId]/items/[itemId]/audit/[auditId]</code></li>
+          <li>Order Item Review: <code>/pharmacies/[pharmacyId]/orders/[orderId]/items/[itemId]/audit/[auditId]/review/[reviewId]</code></li>
+          <li>Profile: <code>/pharmacies/[pharmacyId]/profile</code></li>
+          <li>Reviews: <code>/pharmacies/[pharmacyId]/reviews</code></li>
+        </ul>
+      </li>
+      <li>
+        <strong>Authorizations</strong> <code>/authorizations</code>
+        <ul>
+          <li>Authorization Details: <code>/authorizations/[authId]</code></li>
+          <li>Appeals: <code>/authorizations/[authId]/appeals/[appealId]</code></li>
+          <li>Appeal Review: <code>/authorizations/[authId]/appeals/[appealId]/review/[reviewId]</code></li>
+          <li>Appeal Evidence: <code>/authorizations/[authId]/appeals/[appealId]/review/[reviewId]/evidence/[evidenceId]</code></li>
+          <li>Appeal Evidence History: <code>/authorizations/[authId]/appeals/[appealId]/review/[reviewId]/evidence/[evidenceId]/history/[historyId]</code></li>
+          <li>Appeal Evidence History Notes: <code>/authorizations/[authId]/appeals/[appealId]/review/[reviewId]/evidence/[evidenceId]/history/[historyId]/notes/[noteId]</code></li>
+          <li>Documents: <code>/authorizations/[authId]/documents</code></li>
+          <li>Notes: <code>/authorizations/[authId]/notes</code></li>
+          <li>Overview: <code>/authorizations/[authId]/overview</code></li>
+          <li>Status: <code>/authorizations/[authId]/status</code></li>
+        </ul>
+      </li>
+      <li>
+        <strong>Billing</strong> <code>/billing</code>
+        <ul>
+          <li>Invoice Details: <code>/billing/[invoiceId]</code></li>
+          <li>Adjustments: <code>/billing/[invoiceId]/adjustments/[adjustmentId]</code></li>
+          <li>Adjustment History: <code>/billing/[invoiceId]/adjustments/[adjustmentId]/history/[historyId]</code></li>
+          <li>Adjustment Review: <code>/billing/[invoiceId]/adjustments/[adjustmentId]/history/[historyId]/review/[reviewId]</code></li>
+          <li>Adjustment Review Notes: <code>/billing/[invoiceId]/adjustments/[adjustmentId]/history/[historyId]/review/[reviewId]/notes/[noteId]</code></li>
+          <li>Notes: <code>/billing/[invoiceId]/notes</code></li>
+          <li>Overview: <code>/billing/[invoiceId]/overview</code></li>
+          <li>Payments: <code>/billing/[invoiceId]/payments</code></li>
+        </ul>
+      </li>
+      <li>
+        <strong>Utilization Management</strong> <code>/utilization</code>
+        <ul>
+          <li>Request Details: <code>/utilization/[requestId]</code></li>
+          <li>Notes: <code>/utilization/[requestId]/notes</code></li>
+          <li>Overview: <code>/utilization/[requestId]/overview</code></li>
+          <li>Status: <code>/utilization/[requestId]/status</code></li>
+        </ul>
+      </li>
+      <li>
+        <strong>Reports</strong> <code>/reports</code>
+        <ul>
+          <li>Report Details: <code>/reports/[reportId]</code></li>
+          <li>Overview: <code>/reports/[reportId]/overview</code></li>
+          <li>Overview History: <code>/reports/[reportId]/overview/history/[historyId]</code></li>
+          <li>Overview History Notes: <code>/reports/[reportId]/overview/history/[historyId]/notes/[noteId]</code></li>
+          <li>Overview History Note Attachments: <code>/reports/[reportId]/overview/history/[historyId]/notes/[noteId]/attachments/[attachmentId]</code></li>
+        </ul>
+      </li>
+      <li>
+        <strong>Settings</strong> <code>/settings</code>
+        <ul>
+          <li>Setting Details: <code>/settings/[settingId]</code></li>
+          <li>Overview: <code>/settings/[settingId]/overview</code></li>
+        </ul>
+      </li>
+      <li>
+        <strong>Users</strong> <code>/users</code>
+        <ul>
+          <li>User Details: <code>/users/[userId]</code></li>
+          <li>Overview: <code>/users/[userId]/overview</code></li>
+          <li>Overview History: <code>/users/[userId]/overview/history/[historyId]</code></li>
+          <li>Overview History Notes: <code>/users/[userId]/overview/history/[historyId]/notes/[noteId]</code></li>
+          <li>Overview History Note Attachments: <code>/users/[userId]/overview/history/[historyId]/notes/[noteId]/attachments/[attachmentId]</code></li>
+        </ul>
+      </li>
+    </ul>
+    <p>Each module supports deep linking and navigation via the sidebar and breadcrumbs for a seamless user experience.</p>
+  </div>
+
+  <div class="section">
+    <h2>Contributing</h2>
+    <ul>
+      <li>Follow the existing code style and use Ant Design + Tailwind for UI.</li>
+      <li>Document any new complex routes or modules in this file.</li>
+      <li>Run <code>npm run lint</code> before submitting a PR.</li>
+    </ul>
+  </div>
+  
+</body>
+</html> 
