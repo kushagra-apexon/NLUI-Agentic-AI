@@ -81,33 +81,6 @@ export default function PharmacyOrdersPage() {
 
   return (
     <div className="p-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <Card>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">150</div>
-            <div className="text-gray-600">Total Orders</div>
-          </div>
-        </Card>
-        <Card>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">120</div>
-            <div className="text-gray-600">Delivered</div>
-          </div>
-        </Card>
-        <Card>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">20</div>
-            <div className="text-gray-600">In Transit</div>
-          </div>
-        </Card>
-        <Card>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-orange-600">10</div>
-            <div className="text-gray-600">Processing</div>
-          </div>
-        </Card>
-      </div>
-      
       <Card
         title={<span className="text-lg font-bold flex items-center gap-2"><ShoppingOutlined /> Pharmacy Orders</span>}
         className="shadow-lg rounded-lg"

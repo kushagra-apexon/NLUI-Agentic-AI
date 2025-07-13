@@ -27,7 +27,7 @@ export default function Breadcrumb() {
 
   return (
     <AntdBreadcrumb
-      className="mb-8 text-sm"
+      className="m-10 text-sm"
       items={items}
       separator="/"
       itemRender={(route, params, routes) => {
