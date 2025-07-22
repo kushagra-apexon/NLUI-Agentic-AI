@@ -1,0 +1,220 @@
+{
+  "members.list": {
+    "route": "/members",
+    "requiredParams": [],
+    "intentKeywords": ["members", "list members", "show all members"]
+  },
+  "members.details": {
+    "route": "/members/:memberId",
+    "requiredParams": ["memberId"],
+    "intentKeywords": ["member details", "view member", "member profile"]
+  },
+  "members.authorizations": {
+    "route": "/members/:memberId/authorizations",
+    "requiredParams": ["memberId"],
+    "intentKeywords": ["member authorizations", "view authorizations"]
+  },
+  "members.claims": {
+    "route": "/members/:memberId/claims",
+    "requiredParams": ["memberId"],
+    "intentKeywords": ["member claims", "claims for member"]
+  },
+  "members.coverage": {
+    "route": "/members/:memberId/coverage",
+    "requiredParams": ["memberId"],
+    "intentKeywords": ["member coverage", "coverage info"]
+  },
+  "members.coverage.policies": {
+    "route": "/members/:memberId/coverage/policies/:policyId",
+    "requiredParams": ["memberId", "policyId"],
+    "intentKeywords": ["coverage policy", "policy details"]
+  },
+  "members.coverage.endorsements": {
+    "route": "/members/:memberId/coverage/policies/:policyId/endorsements/:endorsementId",
+    "requiredParams": ["memberId", "policyId", "endorsementId"],
+    "intentKeywords": ["endorsement details", "policy endorsement"]
+  },
+  "members.documents": {
+    "route": "/members/:memberId/documents",
+    "requiredParams": ["memberId"],
+    "intentKeywords": ["member documents", "documents for member"]
+  },
+  "members.history": {
+    "route": "/members/:memberId/history",
+    "requiredParams": ["memberId"],
+    "intentKeywords": ["member history", "history of member"]
+  },
+  "members.profile": {
+    "route": "/members/:memberId/profile",
+    "requiredParams": ["memberId"],
+    "intentKeywords": ["member profile", "profile info"]
+  },
+  "members.notes": {
+    "route": "/members/:memberId/notes",
+    "requiredParams": ["memberId"],
+    "intentKeywords": ["member notes", "notes for member"]
+  },
+  "claims.list": {
+    "route": "/claims",
+    "requiredParams": [],
+    "intentKeywords": ["claims", "view claims", "all claims", "claims list"]
+  },
+  "claims.details": {
+    "route": "/claims/:claimId",
+    "requiredParams": ["claimId"],
+    "intentKeywords": ["claim details", "view claim", "claim overview"]
+  },
+  "claims.adjudication": {
+    "route": "/claims/:claimId/adjudication",
+    "requiredParams": ["claimId"],
+    "intentKeywords": ["adjudication", "claim adjudication"]
+  },
+  "claims.attachments": {
+    "route": "/claims/:claimId/attachments/:attachmentId",
+    "requiredParams": ["claimId", "attachmentId"],
+    "intentKeywords": ["claim attachments", "attachment details"]
+  },
+  "claims.audit": {
+    "route": "/claims/:claimId/attachments/:attachmentId/audit/:auditId",
+    "requiredParams": ["claimId", "attachmentId", "auditId"],
+    "intentKeywords": ["attachment audit", "audit details"]
+  },
+  "claims.history": {
+    "route": "/claims/:claimId/history",
+    "requiredParams": ["claimId"],
+    "intentKeywords": ["claim history", "history of claim"]
+  },
+  "claims.notes": {
+    "route": "/claims/:claimId/notes",
+    "requiredParams": ["claimId"],
+    "intentKeywords": ["claim notes", "notes for claim"]
+  },
+  "claims.overview": {
+    "route": "/claims/:claimId/overview",
+    "requiredParams": ["claimId"],
+    "intentKeywords": ["claim overview", "overview of claim"]
+  },
+  "pharmacies.list": {
+    "route": "/pharmacies",
+    "requiredParams": [],
+    "intentKeywords": ["pharmacies", "view pharmacies", "pharmacy list"]
+  },
+  "pharmacies.details": {
+    "route": "/pharmacies/:pharmacyId",
+    "requiredParams": ["pharmacyId"],
+    "intentKeywords": ["pharmacy details", "view pharmacy", "pharmacy profile"]
+  },
+  "pharmacies.claims": {
+    "route": "/pharmacies/:pharmacyId/claims",
+    "requiredParams": ["pharmacyId"],
+    "intentKeywords": ["pharmacy claims", "claims from pharmacy"]
+  },
+  "pharmacies.inventory": {
+    "route": "/pharmacies/:pharmacyId/inventory",
+    "requiredParams": ["pharmacyId"],
+    "intentKeywords": ["pharmacy inventory", "inventory details"]
+  },
+  "pharmacies.orders": {
+    "route": "/pharmacies/:pharmacyId/orders/:orderId",
+    "requiredParams": ["pharmacyId", "orderId"],
+    "intentKeywords": [
+      "pharmacy orders",
+      "order details",
+      "view pharmacy order"
+    ]
+  },
+  "pharmacies.order.items": {
+    "route": "/pharmacies/:pharmacyId/orders/:orderId/items/:itemId",
+    "requiredParams": ["pharmacyId", "orderId", "itemId"],
+    "intentKeywords": ["order items", "pharmacy order item"]
+  },
+  "pharmacies.order.audit": {
+    "route": "/pharmacies/:pharmacyId/orders/:orderId/items/:itemId/audit/:auditId",
+    "requiredParams": ["pharmacyId", "orderId", "itemId", "auditId"],
+    "intentKeywords": ["order item audit", "audit pharmacy order"]
+  },
+  "pharmacies.order.review": {
+    "route": "/pharmacies/:pharmacyId/orders/:orderId/items/:itemId/audit/:auditId/review/:reviewId",
+    "requiredParams": [
+      "pharmacyId",
+      "orderId",
+      "itemId",
+      "auditId",
+      "reviewId"
+    ],
+    "intentKeywords": ["order item review", "review pharmacy order"]
+  },
+  "pharmacies.profile": {
+    "route": "/pharmacies/:pharmacyId/profile",
+    "requiredParams": ["pharmacyId"],
+    "intentKeywords": ["pharmacy profile", "profile of pharmacy"]
+  },
+  "pharmacies.reviews": {
+    "route": "/pharmacies/:pharmacyId/reviews",
+    "requiredParams": ["pharmacyId"],
+    "intentKeywords": ["pharmacy reviews", "reviews of pharmacy"]
+  },
+  "authorizations.details": {
+    "route": "/authorizations/:authId",
+    "requiredParams": ["authId"],
+    "intentKeywords": ["authorization details", "view authorization"]
+  },
+  "authorizations.appeals": {
+    "route": "/authorizations/:authId/appeals/:appealId",
+    "requiredParams": ["authId", "appealId"],
+    "intentKeywords": ["appeal details", "authorization appeal"]
+  },
+  "authorizations.review": {
+    "route": "/authorizations/:authId/appeals/:appealId/review/:reviewId",
+    "requiredParams": ["authId", "appealId", "reviewId"],
+    "intentKeywords": ["appeal review", "review of appeal"]
+  },
+  "authorizations.evidence": {
+    "route": "/authorizations/:authId/appeals/:appealId/review/:reviewId/evidence/:evidenceId",
+    "requiredParams": ["authId", "appealId", "reviewId", "evidenceId"],
+    "intentKeywords": ["appeal evidence", "evidence details"]
+  },
+  "authorizations.history": {
+    "route": "/authorizations/:authId/appeals/:appealId/review/:reviewId/evidence/:evidenceId/history/:historyId",
+    "requiredParams": [
+      "authId",
+      "appealId",
+      "reviewId",
+      "evidenceId",
+      "historyId"
+    ],
+    "intentKeywords": ["evidence history", "history of appeal evidence"]
+  },
+  "authorizations.notes": {
+    "route": "/authorizations/:authId/appeals/:appealId/review/:reviewId/evidence/:evidenceId/history/:historyId/notes/:noteId",
+    "requiredParams": [
+      "authId",
+      "appealId",
+      "reviewId",
+      "evidenceId",
+      "historyId",
+      "noteId"
+    ],
+    "intentKeywords": ["appeal notes", "note on evidence history"]
+  },
+  "authorizations.documents": {
+    "route": "/authorizations/:authId/documents",
+    "requiredParams": ["authId"],
+    "intentKeywords": ["authorization documents", "view documents"]
+  },
+  "authorizations.notes.root": {
+    "route": "/authorizations/:authId/notes",
+    "requiredParams": ["authId"],
+    "intentKeywords": ["authorization notes", "notes of authorization"]
+  },
+  "authorizations.overview": {
+    "route": "/authorizations/:authId/overview",
+    "requiredParams": ["authId"],
+    "intentKeywords": ["authorization overview", "overview of authorization"]
+  },
+  "authorizations.status": {
+    "route": "/authorizations/:authId/status",
+    "requiredParams": ["authId"],
+    "intentKeywords": ["authorization status", "status of authorization"]
+  }
+}
